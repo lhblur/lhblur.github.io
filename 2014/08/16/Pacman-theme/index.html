@@ -1,0 +1,457 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f7ea678298c7a8a00253a2488ce13f6d";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  
+    <title>Pacman-theme | High See</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="lhblur">
+    
+    <meta name="description" content="开始使用Pacman主题后，我发现有很多地方不明白，以致浪费了很多时间，所以分享这篇文章出来给初次使用这款主题的小伙伴！">
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lhblur">
+    <meta name="twitter:title" content="Pacman-theme | High See">
+      
+    
+    
+    <link rel="alternative" href="/atom.xml" title="High See" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="High See" title="High See"></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="High See">High See</a></h1>
+				<h2 class="blog-motto">go to see</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/lab">Lab</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索">
+						<input type="hidden" name="q" value="site:leecol.me">
+					</form>
+					
+					</li>
+				</ul>
+			</ul></nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope="" itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/08/16/Pacman-theme/" title="Pacman-theme" itemprop="url">Pacman-theme</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://plus.google.com/107843438313320000000?rel=author" title="lhblur" target="_blank" itemprop="author">lhblur</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2014-08-16T14:30:13.000Z" itemprop="datePublished">2014-08-16</time>
+    更新日期:<time datetime="2014-08-16T14:49:24.000Z" itemprop="dateModified">2014-08-16</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#配置文件"><span class="toc-number">1.</span> <span class="toc-text">配置文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#说明"><span class="toc-number">2.</span> <span class="toc-text">说明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">2.1.</span> <span class="toc-text">Reference</span></a></li></ol></li></ol>
+		</div>
+		
+		<p>开始使用Pacman主题后，我发现有很多地方不明白，以致浪费了很多时间，所以分享这篇文章出来给初次使用这款主题的小伙伴！<a id="more"></a></p>
+<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##### Menu</span></span><br><span class="line"><span class="attr">menu:</span></span><br><span class="line"><span class="attr">  Home:</span> <span class="string">/</span></span><br><span class="line"><span class="attr">  Archives:</span> <span class="string">/archives</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">#### Widgets</span></span><br><span class="line"><span class="attr">widgets:</span> </span><br><span class="line"><span class="bullet">-</span> <span class="string">category</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">tag</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">rss</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#### RSS</span></span><br><span class="line"><span class="attr">rss:</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">#### Image</span></span><br><span class="line"><span class="attr">imglogo:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  src:</span> <span class="string">/img/logo.svg</span> </span><br><span class="line"><span class="attr">  favicon:</span> <span class="string">/img/favicon.ico</span> </span><br><span class="line"><span class="attr">  apple_icon:</span> <span class="string">/img/pacman.jpg</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#### Author Avatar Picture</span></span><br><span class="line"><span class="attr">author_img_enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">dataURI:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">author_img_data:</span> </span><br><span class="line"><span class="attr">author_img:</span> <span class="string">/img/author.jpg</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#### Font</span></span><br><span class="line"><span class="attr">ShowCustomFont:</span> <span class="literal">true</span>  </span><br><span class="line"></span><br><span class="line"><span class="comment">#### Toc</span></span><br><span class="line"><span class="attr">toc:</span></span><br><span class="line"><span class="attr">  article:</span> <span class="literal">true</span> </span><br><span class="line"><span class="attr">  aside:</span> <span class="literal">true</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">#### Fancybox</span></span><br><span class="line"><span class="attr">fancybox:</span> <span class="literal">true</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">#### Author information</span></span><br><span class="line"><span class="attr">author:</span></span><br><span class="line"><span class="attr">  google_plus:</span> </span><br><span class="line"><span class="attr">  intro_line1:</span> </span><br><span class="line"><span class="attr">  intro_line2:</span> </span><br><span class="line"><span class="attr">  weibo:</span> </span><br><span class="line"><span class="attr">  twitter:</span> </span><br><span class="line"><span class="attr">  github:</span> </span><br><span class="line"><span class="attr">  facebook:</span> </span><br><span class="line"><span class="attr">  tsina:</span> </span><br><span class="line">  </span><br><span class="line"><span class="comment">#### Comment</span></span><br><span class="line"><span class="attr">duoshuo:</span> </span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">false</span>        </span><br><span class="line"><span class="attr">  short_name:</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">#### Share button</span></span><br><span class="line"><span class="attr">jiathis:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">false</span>  </span><br><span class="line"><span class="attr">  id:</span> </span><br><span class="line"><span class="attr">  tsina:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#### Analytics</span></span><br><span class="line"><span class="attr">google_analytics:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">  id:</span></span><br><span class="line"><span class="attr">  site:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#### Custom Search</span></span><br><span class="line"><span class="attr">google_cse:</span> </span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">  cx:</span></span><br></pre></td></tr></table></figure>
+<h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><ol>
+<li>Menu：主页上的菜单，默认开启Home和Archives两个，默认没有启用 Tags 和 Categories 页面，如果需要启用请在博客目录下的source文件夹中分别建立tags 和 categories文件夹，<br>分别包含一个index.md文件，格式如下：<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">layout:</span> <span class="string">tags</span> <span class="string">(或categories)</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">tags</span> <span class="string">(或categories)</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>如果想创建其他菜单，请直接在Menu下直接按照Home的格式创建，如添加ToDo菜单，则添加如下：<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">ToDo:</span> /todo</span><br></pre></td></tr></table></figure></p>
+<p>然后在source文件夹下创建todo文件夹，包含一个index.md文件，格式和上面tags相同。</p>
+<ol start="2">
+<li>自带提供了6种插件：category,tag,rss,archive,tagcloud,links.按照格式添加即可，如：<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">- </span>tagcloud</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>同时可到\themes\pacman\layout_widget下编辑文件，如常用的links。  </p>
+<ol start="3">
+<li><p>Image：图片相关的功能。enable是否启用这个功能，src：主页Logo图标，svg或者png格式，favicon：配<br>套的小图标，打开网页时浏览器标签页上显示的，apple_icon:苹果设备图标。</p>
+</li>
+<li><p>Author Avatar Picture：作者头像相关设定，author_img_enable: 显示底部的作者头像。支持头像使用<br>dataURI格式，若使用则需要修改dataURI的值为true并在下面的author_img_data后填上图片的值。如果还是想用传统的jpg格式那么就把图片路径放在author_img后，同时把dataURI设置成false。</p>
+</li>
+<li><p>Font：自定义字体，不用管。</p>
+</li>
+<li><p>Toc：是否启用在文章中或侧边栏中目录功能。二者可以都为true或都为false。同时，如果想在特定的某<br>一篇文章中关闭目录功能你可以在文章文件开头中的front-matter中加上一行toc: false。</p>
+</li>
+<li><p>Author information：自己的个人信息。<br>google_plus：填写你Google+主页网址里的数字，如<br><a href="https://plus.google.com/u/0/107843438313319999924" target="_blank" rel="noopener">https://plus.google.com/u/0/107843438313319999924</a> 中的107843438313319999924<br>intro_line1和intro_line2：底部头像旁边的自我介绍。<br>weibo：填写微博个性域名的最后一部分，如<a href="http://weibo.com/lhblur" target="_blank" rel="noopener">http://weibo.com/lhblur</a> 中的lhblur<br>twitter和facebook同微博，不再举例。<br>github：填写username，如<a href="https://github.com/lhblur" target="_blank" rel="noopener">https://github.com/lhblur</a> 中的lhblur<br>tsina：新浪微博的ID，不同与个性域名，可自行百度查找方法</p>
+</li>
+<li><p>duoshuo：多说，short_name填写的是在多说注册的usename。</p>
+</li>
+<li><p>jiathis：不用管，已经内置分享。</p>
+</li>
+<li><p>google_analytics: Google Analytics追踪代码，不习惯使用Google的，可使用百度统计，在百度站长平<br>台注册完成后，进入百度统计网站将百度统计代码插入after_footer.ejs文件中即可。</p>
+</li>
+<li><p>google_cse: Google自定义搜索。开启自定义搜索需要先登录Google CSE，配置好你的站点，并获得此<br>自定义搜索的ID。此外你需要在博客目录下的source文件夹中建立search文件夹并包含一个index.md文件。内容为：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">layout:</span> <span class="string">search</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">search</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://yangjian.me/workspace/introducing-pacman-theme/" target="_blank" rel="noopener">Pacman主题介绍</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/hexo/">hexo</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/hobby/">hobby</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://leecol.me/2014/08/16/Pacman-theme/" data-title="Pacman-theme | High See" data-tsina="2167735640" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev">
+ <a href="/2014/09/18/my-android-experience/" title="我的Android经历">
+  <strong>PREVIOUS:</strong><br>
+  <span>
+  我的Android经历</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/08/08/build-hexo-blog/" title="零基础搭建hexo博客">
+ <strong>NEXT:</strong><br> 
+ <span>零基础搭建hexo博客
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#配置文件"><span class="toc-number">1.</span> <span class="toc-text">配置文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#说明"><span class="toc-number">2.</span> <span class="toc-text">说明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">2.1.</span> <span class="toc-text">Reference</span></a></li></ol></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/android/" title="android">android<sup>1</sup></a></li>
+		
+			<li><a href="/categories/hobby/" title="hobby">hobby<sup>3</sup></a></li>
+		
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		
+			<li><a href="/categories/share/" title="share">share<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/hexo/" title="hexo">hexo<sup>2</sup></a></li>
+		
+			<li><a href="/tags/opencv/" title="opencv">opencv<sup>1</sup></a></li>
+		
+			<li><a href="/tags/share/" title="share">share<sup>3</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+	  <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
+      <li><a href="http://yangjian.me" target="_blank" title="YangJian">Alimon's Blog</a></li>
+      <li><a href="http://zipperary.com/" target="_blank" title="zippera">Zippera's Blog</a></li>
+      <li><a href="http://brotherb.info/" target="_blank" title="brotherb">Spike's Blog</a></li>
+      <li><a href="http://hijiangtao.github.io/" target="_blank" title="JiangTao">Data.Blog</a></li>
+	  <li><a href="http://ibrother.me/" target="_blank" title="ibrother">ibrother</a></li>
+	  <li><a href="http://www.solomp.com" target="_blank" title="MP16">歌神彭明</a></li>
+      <li><a href="http://www.j-cn.me/" target="_blank" title="Jeremy">Jeremy's Memo</a></li>
+	  <li><a href="http://lutaf.com" target="_blank" title="lutaf">鲁塔弗</a></li>
+	  <li><a href="http://www.dielianhua.us/" target="_blank" title="dielianhua">Web前端学习笔记</a></li>
+	  <li><a href="http://wulala.in/" target="_blank" title="wulala">乌拉拉</a></li>
+	  <li><a href="http://mycodebattle.com/" target="_blank" title="code">PureForg's Home</a></li>
+	  <li><a href="http://ippotsuko.com/" target="_blank" title="ippotsuko">遇见</a></li>
+	  <li><a href="http://www.flaticon.com/" target="_blank" title="icon">flaticon</a></li>
+	  <li><a href="http://zbcwilliam.com/" target="_blank" title="pig">猪</a></li>
+	</ul>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer">
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hi，I&#39;m LiHao,who is a student for now. <br>
+			This is my blog,thanks for your visit!</p>
+	</section>
+	 
+	<div class="social-font">
+		
+		<a href="http://weibo.com/lhblur" target="_blank" title="weibo"></a>
+		
+		
+		<a href="https://twitter.com/lhblur" target="_blank" title="twitter"></a>
+		
+		
+		<a href="https://github.com/lhblur" target="_blank" title="github"></a>
+		
+		
+		<a href="https://www.facebook.com/lhblur" target="_blank" title="facebook"></a>
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2019 
+		
+		<a href="http://leecol.me" target="_blank" title="lhblur">lhblur</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"lhblur"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-53607018-1', 'lhblur.com');  
+ga('send', 'pageview');
+</script>
+
+
+  </body>
+</html>

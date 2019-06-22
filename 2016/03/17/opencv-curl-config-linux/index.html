@@ -1,0 +1,444 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f7ea678298c7a8a00253a2488ce13f6d";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  
+    <title>opencv&amp;curl-config-linux | High See</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="lhblur">
+    
+    <meta name="description" content="最近一直在做老板的一个摄像头跟踪的项目，需要在linux上完成编译和运行，OpenCV 3.x在linux上的编译需要使用cmake的方式，同时需要配置curl库文件。我刚开始在配置时饶了很多弯路，现在分享出来，供大家参考。">
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lhblur">
+    <meta name="twitter:title" content="opencv&amp;curl-config-linux | High See">
+      
+    
+    
+    <link rel="alternative" href="/atom.xml" title="High See" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="High See" title="High See"></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="High See">High See</a></h1>
+				<h2 class="blog-motto">go to see</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/lab">Lab</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索">
+						<input type="hidden" name="q" value="site:leecol.me">
+					</form>
+					
+					</li>
+				</ul>
+			</ul></nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope="" itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/03/17/opencv-curl-config-linux/" title="opencv&amp;curl-config-linux" itemprop="url">opencv&amp;curl-config-linux</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://plus.google.com/107843438313320000000?rel=author" title="lhblur" target="_blank" itemprop="author">lhblur</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-03-17T03:17:21.000Z" itemprop="datePublished">2016-03-17</time>
+    更新日期:<time datetime="2016-03-18T02:07:43.343Z" itemprop="dateModified">2016-03-18</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Install-OpenCV-on-Ubuntu"><span class="toc-number">1.</span> <span class="toc-text">Install OpenCV on Ubuntu</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Test-it"><span class="toc-number">2.</span> <span class="toc-text">Test it</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Install-curl-on-Ubuntu"><span class="toc-number">3.</span> <span class="toc-text">Install curl on Ubuntu</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Test-both-together"><span class="toc-number">4.</span> <span class="toc-text">Test both together</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">5.</span> <span class="toc-text">Reference</span></a></li></ol>
+		</div>
+		
+		<p>最近一直在做老板的一个摄像头跟踪的项目，需要在linux上完成编译和运行，OpenCV 3.x在linux上的编译需要使用cmake的方式，同时需要配置curl库文件。我刚开始在配置时饶了很多弯路，现在分享出来，供大家参考。<a id="more"></a></p>
+<h2 id="Install-OpenCV-on-Ubuntu"><a href="#Install-OpenCV-on-Ubuntu" class="headerlink" title="Install OpenCV on Ubuntu"></a>Install OpenCV on Ubuntu</h2><p>说明下我的系统环境：Ubuntu 14.04 LTS 64 bits。在开始之前，有必要更新下系统，相信大家都不陌生<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="builtin-name">get</span> update</span><br><span class="line">sudo apt-<span class="builtin-name">get</span> upgrade</span><br></pre></td></tr></table></figure></p>
+<p>1.安装OpenCV必要的依赖文件<br>话不多说，运行下面的命令<br><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> -y install libopencv-<span class="built_in">dev</span> build-essential cmake git libgtk2<span class="number">.0</span>-<span class="built_in">dev</span> pkg-config python-<span class="built_in">dev</span> python-numpy libdc1394<span class="number">-22</span> libdc1394<span class="number">-22</span>-<span class="built_in">dev</span> libjpeg-<span class="built_in">dev</span> libpng12-<span class="built_in">dev</span> libtiff4-<span class="built_in">dev</span> libjasper-<span class="built_in">dev</span> libavcodec-<span class="built_in">dev</span> libavformat-<span class="built_in">dev</span> libswscale-<span class="built_in">dev</span> libxine-<span class="built_in">dev</span> libgstreamer0<span class="number">.10</span>-<span class="built_in">dev</span> libgstreamer-plugins-base0<span class="number">.10</span>-<span class="built_in">dev</span> libv4l-<span class="built_in">dev</span> libtbb-<span class="built_in">dev</span> libqt4-<span class="built_in">dev</span> libfaac-<span class="built_in">dev</span> libmp3lame-<span class="built_in">dev</span> libopencore-amrnb-<span class="built_in">dev</span> libopencore-amrwb-<span class="built_in">dev</span> libtheora-<span class="built_in">dev</span> libvorbis-<span class="built_in">dev</span> libxvidcore-<span class="built_in">dev</span> x264 v4l-utils unzip</span><br></pre></td></tr></table></figure></p>
+<p>2.下载OpenCV安装文件<br>你可以自己手动下载，也可以使用下面的命令来下载<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mkdir</span> opencv</span><br><span class="line"><span class="keyword">cd</span> opencv</span><br><span class="line">wget https:<span class="comment">//github.com/Itseez/opencv/archive/3.1.0.zip -O opencv-3.1.0.zip</span></span><br><span class="line">unzip opencv-3.1.0.<span class="keyword">zip</span></span><br></pre></td></tr></table></figure></p>
+<p>3.安装OpenCV<br>使用Cmake安装编译时有许多可选项，根据自己的需要选择。<strong>如果你想要安装Qt 5.x那么不要使用-D WITH_QT=ON</strong>,参见<a href="http://rodrigoberriel.com/2014/11/using-opencv-3-qt-creator-3-2-qt-5-3/" target="_blank" rel="noopener">how to use OpenCV 3 on Qt 5.3</a><br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd opencv-3.1.0</span><br><span class="line">mkdir build</span><br><span class="line">cd build</span><br><span class="line">cmake -D <span class="attribute">CMAKE_BUILD_TYPE</span>=RELEASE -D <span class="attribute">CMAKE_INSTALL_PREFIX</span>=/usr/local -D <span class="attribute">WITH_TBB</span>=ON -D <span class="attribute">WITH_V4L</span>=ON -D <span class="attribute">WITH_QT</span>=ON -D <span class="attribute">WITH_OPENGL</span>=ON <span class="built_in">..</span></span><br><span class="line">make -j $(nproc)</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure></p>
+<p>4.完成安装<br>将opencv配置文件链接到Ubuntu<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="string">/bin/bash</span> -c '<span class="keyword">echo</span> <span class="string">"/usr/local/lib"</span> &gt; <span class="string">/etc/ld.so.conf.d/opencv.conf</span>'</span><br><span class="line">sudo ldconfig</span><br></pre></td></tr></table></figure></p>
+<h2 id="Test-it"><a href="#Test-it" class="headerlink" title="Test it"></a>Test it</h2><p>在测试之前，可以重启下系统，别着急，马上就好。<br>1.使用OpenCV 示例<br>首先，我们需要进入到示例目录，并使用cmake编译，然后运行看看<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd opencv/opencv<span class="number">-3.1</span><span class="number">.0</span>/samples/</span><br><span class="line">sudo cmake .</span><br><span class="line">sudo make -j $(nproc)</span><br></pre></td></tr></table></figure></p>
+<p>现在可以运行任意一个示例了，选择一个吧<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd cpp/</span><br><span class="line">./cpp-example-facedetect lena<span class="selector-class">.jpg</span> <span class="comment">// (../data/lena.jpg)</span></span><br><span class="line">./cpp-example-houghlines pic1<span class="selector-class">.png</span> <span class="comment">// (../data/pic1.jpg)</span></span><br></pre></td></tr></table></figure></p>
+<p>2.编译并运行我们自己的代码<br>在含有代码cpp文件以及cmakelist的项目目录里(建议在该目录下新建目录再编译运行)<br><figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cmake .</span><br><span class="line">make</span><br><span class="line">./yourprogram</span><br></pre></td></tr></table></figure></p>
+<h2 id="Install-curl-on-Ubuntu"><a href="#Install-curl-on-Ubuntu" class="headerlink" title="Install curl on Ubuntu"></a>Install curl on Ubuntu</h2><p>1.下载curl库文件<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir curl</span><br><span class="line">cd curl</span><br><span class="line">wget https:<span class="comment">//curl.haxx.se/download/curl-7.47.1.tar.gz</span></span><br><span class="line">tar -xzvf curl-<span class="number">7.47</span>.<span class="number">1</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span></span><br></pre></td></tr></table></figure></p>
+<p>2.安装curl库<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd curl-7.47.1</span><br><span class="line">./configure <span class="attribute">--prefix</span>=/usr/local/curl</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br><span class="line">vi /etc<span class="built_in">/profile </span>(添加<span class="builtin-name">export</span> <span class="attribute">PATH</span>=<span class="variable">$PATH</span>:/usr/local/curl/bin)</span><br></pre></td></tr></table></figure></p>
+<p>3.测试下<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="comment">--version</span></span><br></pre></td></tr></table></figure></p>
+<p>看是否返回刚刚安装的版本号。</p>
+<h2 id="Test-both-together"><a href="#Test-both-together" class="headerlink" title="Test both together"></a>Test both together</h2><p>这里我使用一个项目初始代码来测试。<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mkdir</span> <span class="keyword">test</span></span><br><span class="line"><span class="keyword">cd</span> <span class="keyword">test</span></span><br><span class="line">touch main.cpp</span><br><span class="line">touch CMakeLists.txt</span><br></pre></td></tr></table></figure></p>
+<p><strong>main.cpp是我的主程序文件，CMakeLists.txt是cmake编译所需文件。</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br></pre></td><td class="code"><pre><span class="line">[main.cpp]</span><br><span class="line">*实现从给定IP的IP Camera中获取图像并保存成图片，同时可以使摄像头跟随镜头前运动物体的方向运动*</span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/highgui/highgui.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;curl/curl.h&gt;</span></span></span><br><span class="line">  </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> ip[<span class="number">32</span>];</span><br><span class="line"><span class="keyword">int</span> x_center, y_center;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Check if there is motion in the result matrix</span></span><br><span class="line"><span class="comment">// count the number of changes and return.</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">detectMotion</span><span class="params">(<span class="keyword">const</span> Mat &amp; motion, Mat &amp; result, Mat &amp; result_cropped,</span></span></span><br><span class="line"><span class="function"><span class="params">                        <span class="keyword">int</span> x_start, <span class="keyword">int</span> x_stop, <span class="keyword">int</span> y_start, <span class="keyword">int</span> y_stop,</span></span></span><br><span class="line"><span class="function"><span class="params">                        <span class="keyword">int</span> max_deviation,</span></span></span><br><span class="line"><span class="function"><span class="params">                        Scalar &amp; color)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> Direction = <span class="number">0</span>;</span><br><span class="line">	<span class="comment">// calculate the standard deviation</span></span><br><span class="line">	Scalar mean, stddev;</span><br><span class="line">	meanStdDev(motion, mean, stddev);</span><br><span class="line">	<span class="comment">// if not to much changes then the motion is real (neglect agressive</span></span><br><span class="line">	<span class="comment">// snow, temporary sunlight)</span></span><br><span class="line">	<span class="keyword">if</span>(stddev[<span class="number">0</span>] &lt; max_deviation)</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">int</span> number_of_changes = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">int</span> min_x = motion.cols, max_x = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">int</span> min_y = motion.rows, max_y = <span class="number">0</span>;</span><br><span class="line">      <span class="comment">// loop over image and detect changes</span></span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> j = y_start; j &lt; y_stop; j+=<span class="number">2</span>)&#123; <span class="comment">// height</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = x_start; i &lt; x_stop; i+=<span class="number">2</span>)&#123; <span class="comment">// width</span></span><br><span class="line">          <span class="comment">// check if at pixel (j,i) intensity is equal to 255</span></span><br><span class="line">          <span class="comment">// this means that the pixel is different in the sequence</span></span><br><span class="line">          <span class="comment">// of images (prev_frame, current_frame, next_frame)</span></span><br><span class="line">          <span class="keyword">if</span>(<span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>&gt;(motion.at&lt;uchar&gt;(j,i)) == <span class="number">255</span>)</span><br><span class="line">            &#123;</span><br><span class="line">              number_of_changes++;</span><br><span class="line">              <span class="keyword">if</span>(min_x&gt;i) min_x = i;</span><br><span class="line">              <span class="keyword">if</span>(max_x&lt;i) max_x = i;</span><br><span class="line">              <span class="keyword">if</span>(min_y&gt;j) min_y = j;</span><br><span class="line">              <span class="keyword">if</span>(max_y&lt;j) max_y = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span>(number_of_changes)&#123;</span><br><span class="line">        <span class="comment">//check if not out of bounds</span></span><br><span class="line">        <span class="keyword">if</span>(min_x<span class="number">-10</span> &gt; <span class="number">0</span>) min_x -= <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">if</span>(min_y<span class="number">-10</span> &gt; <span class="number">0</span>) min_y -= <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">if</span>(max_x+<span class="number">10</span> &lt; result.cols<span class="number">-1</span>) max_x += <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">if</span>(max_y+<span class="number">10</span> &lt; result.rows<span class="number">-1</span>) max_y += <span class="number">10</span>;</span><br><span class="line">        <span class="comment">// draw rectangle round the changed pixel</span></span><br><span class="line">        <span class="function">Point <span class="title">x</span><span class="params">(min_x,min_y)</span></span>;</span><br><span class="line">        <span class="function">Point <span class="title">y</span><span class="params">(max_x,max_y)</span></span>;</span><br><span class="line"></span><br><span class="line">		x_center = (min_x + max_x) / <span class="number">2</span>;</span><br><span class="line">		y_center = (min_y + max_y) / <span class="number">2</span>;</span><br><span class="line">		</span><br><span class="line">        <span class="function">Rect <span class="title">rect</span><span class="params">(x,y)</span></span>;</span><br><span class="line">        Mat cropped = result(rect);</span><br><span class="line">        cropped.copyTo(result_cropped);</span><br><span class="line">        rectangle(result,rect,color,<span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> number_of_changes;</span><br><span class="line">	  <span class="comment">//return Direction;</span></span><br><span class="line">    &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Move camera, dir: direction, 0:up, 1:stop up, 2:down, 3:stop down,</span></span><br><span class="line"><span class="comment"> * 4:left, 5:stop left, 6:right, 7:stop right</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">moveCamera</span><span class="params">(<span class="keyword">int</span> dir, <span class="keyword">int</span> degree)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  CURL *c;</span><br><span class="line">  <span class="keyword">char</span> cmd[<span class="number">128</span>];</span><br><span class="line">  <span class="built_in">memset</span>(cmd, <span class="number">0</span>, <span class="number">128</span>);</span><br><span class="line">  <span class="built_in">sprintf</span>(cmd, <span class="string">"http://192.168.1.115:81/decoder_control.cgi?loginuse=admin&amp;loginpas=&amp;command=%d&amp;onestep=0&amp;%d"</span>, dir, degree);</span><br><span class="line">  c = curl_easy_init();</span><br><span class="line">  curl_easy_setopt(c, CURLOPT_URL, cmd);</span><br><span class="line">  curl_easy_perform(c);</span><br><span class="line">  curl_easy_cleanup(c);  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">moveCameraUp</span><span class="params">(<span class="keyword">int</span> degree)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  moveCamera(<span class="number">0</span>, degree);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">moveCameraDown</span><span class="params">(<span class="keyword">int</span> degree)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  moveCamera(<span class="number">2</span>, degree);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">moveCameraLeft</span><span class="params">(<span class="keyword">int</span> degree)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  moveCamera(<span class="number">4</span>, degree);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">moveCameraRight</span><span class="params">(<span class="keyword">int</span> degree)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  moveCamera(<span class="number">6</span>, degree);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">moveCameraStop</span><span class="params">(<span class="keyword">int</span> degree)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	moveCamera(<span class="number">1</span>, degree);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> addr[<span class="number">128</span>];</span><br><span class="line">  <span class="built_in">strcpy</span>(ip, argv[<span class="number">1</span>]);</span><br><span class="line">  <span class="built_in">sprintf</span>(addr, <span class="string">"http://192.168.1.115:81/videostream.cgi?loginuse=admin&amp;loginpas=&amp;.mjpg"</span>, ip);</span><br><span class="line">  <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> videoStreamAddress = addr;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> thre_width = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">int</span> threshold_height = <span class="number">60</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function">VideoCapture <span class="title">cap</span><span class="params">(videoStreamAddress)</span></span>; <span class="comment">// open the default camera</span></span><br><span class="line">  <span class="keyword">if</span>(!cap.isOpened())  <span class="comment">// check if we succeeded</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  cv::Mat result, result_cropped, prev_frame, next_frame, current_frame, d1, d2, motion;</span><br><span class="line">  <span class="keyword">int</span> number_of_changes, number_of_sequence = <span class="number">0</span>;</span><br><span class="line">  Scalar mean_, color(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>); <span class="comment">//yellow mark</span></span><br><span class="line">  </span><br><span class="line">  cap &gt;&gt; prev_frame;</span><br><span class="line">  result = prev_frame;</span><br><span class="line"></span><br><span class="line">  cap &gt;&gt; current_frame;</span><br><span class="line"></span><br><span class="line">  cap &gt;&gt; next_frame;</span><br><span class="line"></span><br><span class="line">  cvtColor(current_frame, current_frame, CV_RGB2GRAY);</span><br><span class="line">  cvtColor(prev_frame, prev_frame, CV_RGB2GRAY);</span><br><span class="line">  cvtColor(next_frame, next_frame, CV_RGB2GRAY);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> x_start = <span class="number">10</span>, x_stop = current_frame.cols - <span class="number">11</span>;</span><br><span class="line">  <span class="keyword">int</span> y_start = <span class="number">0</span>, y_stop = current_frame.rows - <span class="number">1</span>, there_is_motion = <span class="number">5</span>, max_deviation = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">  Mat kernel_ero = getStructuringElement(MORPH_RECT, Size(<span class="number">2</span>,<span class="number">2</span>));</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(;;) &#123;</span><br><span class="line">    prev_frame = current_frame;</span><br><span class="line">    current_frame = next_frame;</span><br><span class="line">    <span class="keyword">if</span>(!cap.read(next_frame)) &#123;</span><br><span class="line">      <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"No frame"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">      cv::waitKey();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    result = next_frame;</span><br><span class="line">    </span><br><span class="line">    cvtColor(next_frame, next_frame, CV_RGB2GRAY);</span><br><span class="line"></span><br><span class="line">    absdiff(prev_frame, next_frame, d1);</span><br><span class="line">    absdiff(next_frame, current_frame, d2);</span><br><span class="line">    bitwise_and(d1, d2, motion);</span><br><span class="line"></span><br><span class="line">    threshold(motion, motion, <span class="number">35</span>, <span class="number">255</span>, CV_THRESH_BINARY);</span><br><span class="line">    erode(motion, motion, kernel_ero);</span><br><span class="line"></span><br><span class="line">    number_of_changes = detectMotion(motion, result, result_cropped, x_start, x_stop, y_start, y_stop, max_deviation, color);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (y_center &gt; (result.rows / <span class="number">2</span>) + threshold_height)</span><br><span class="line">	&#123;</span><br><span class="line">		moveCameraDown(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (y_center &lt; (result.rows / <span class="number">2</span>) - threshold_height)</span><br><span class="line">	&#123;</span><br><span class="line">		moveCameraUp(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		moveCameraStop(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (x_center &gt; (result.cols / <span class="number">2</span>) + thre_width)</span><br><span class="line">	&#123;</span><br><span class="line">		moveCameraRight(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (x_center &lt; (result.cols / <span class="number">2</span>) - thre_width)</span><br><span class="line">	&#123;</span><br><span class="line">		moveCameraLeft(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> </span><br><span class="line">	&#123;</span><br><span class="line">		moveCameraStop(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	cv::imshow(<span class="string">"My Window"</span>, result);</span><br><span class="line">	waitKey(<span class="number">1</span>);</span><br><span class="line">  &#125; </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<hr>
+ <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[CMakeLists.txt]</span><br><span class="line"><span class="function"><span class="title">cmake_minimum_required</span><span class="params">(VERSION <span class="number">2.8</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">project</span><span class="params">(main)</span></span></span><br><span class="line"><span class="function"><span class="title">add_executable</span><span class="params">(main main.cpp)</span></span></span><br><span class="line"><span class="function"><span class="title">find_package</span><span class="params">(OpenCV REQUIRED)</span></span></span><br><span class="line"><span class="function"><span class="title">find_package</span><span class="params">(CURL REQUIRED)</span></span></span><br><span class="line"><span class="function"><span class="title">target_link_libraries</span><span class="params">(main $&#123;CURL_LIBRARY&#125;)</span></span></span><br><span class="line"><span class="function"><span class="title">target_link_libraries</span><span class="params">(main $&#123;OpenCV_LIBS&#125;)</span></span></span><br></pre></td></tr></table></figure>
+<hr>
+<p> 下面我们来编译运行一下，在test目录下<br> <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir build</span><br><span class="line"><span class="keyword">cd</span> build</span><br><span class="line">cmake <span class="string">..</span><span class="params">(如需使用gdb调试使用 cmake <span class="attr">-DCMAKE_BUILD_TYPE</span>=Debug ..)</span></span><br><span class="line">make</span><br><span class="line"><span class="string">./main</span> 192.168.1.xxx<span class="params">(ip)</span></span><br></pre></td></tr></table></figure></p>
+<p> 如果上面的编译中没有出错，那么恭喜你，配置成功。</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://rodrigoberriel.com/2014/10/installing-opencv-3-0-0-on-ubuntu-14-04/" target="_blank" rel="noopener">installing-opencv-3-0-0-on-ubuntu-14-04</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/opencv/">opencv</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/linux/">linux</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://leecol.me/2016/03/17/opencv-curl-config-linux/" data-title="opencv&amp;curl-config-linux | High See" data-tsina="2167735640" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev">
+ <a href="/2018/12/10/爱博德智能外呼机器人/" title="爱博德智能外呼机器人">
+  <strong>PREVIOUS:</strong><br>
+  <span>
+  爱博德智能外呼机器人</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/07/04/openwrt-router-campus-network/" title="openwrt+mentohust校园网无线WiFi">
+ <strong>NEXT:</strong><br> 
+ <span>openwrt+mentohust校园网无线WiFi
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Install-OpenCV-on-Ubuntu"><span class="toc-number">1.</span> <span class="toc-text">Install OpenCV on Ubuntu</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Test-it"><span class="toc-number">2.</span> <span class="toc-text">Test it</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Install-curl-on-Ubuntu"><span class="toc-number">3.</span> <span class="toc-text">Install curl on Ubuntu</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Test-both-together"><span class="toc-number">4.</span> <span class="toc-text">Test both together</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">5.</span> <span class="toc-text">Reference</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/android/" title="android">android<sup>1</sup></a></li>
+		
+			<li><a href="/categories/hobby/" title="hobby">hobby<sup>3</sup></a></li>
+		
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		
+			<li><a href="/categories/share/" title="share">share<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/hexo/" title="hexo">hexo<sup>2</sup></a></li>
+		
+			<li><a href="/tags/opencv/" title="opencv">opencv<sup>1</sup></a></li>
+		
+			<li><a href="/tags/share/" title="share">share<sup>3</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+	  <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
+      <li><a href="http://yangjian.me" target="_blank" title="YangJian">Alimon's Blog</a></li>
+      <li><a href="http://zipperary.com/" target="_blank" title="zippera">Zippera's Blog</a></li>
+      <li><a href="http://brotherb.info/" target="_blank" title="brotherb">Spike's Blog</a></li>
+      <li><a href="http://hijiangtao.github.io/" target="_blank" title="JiangTao">Data.Blog</a></li>
+	  <li><a href="http://ibrother.me/" target="_blank" title="ibrother">ibrother</a></li>
+	  <li><a href="http://www.solomp.com" target="_blank" title="MP16">歌神彭明</a></li>
+      <li><a href="http://www.j-cn.me/" target="_blank" title="Jeremy">Jeremy's Memo</a></li>
+	  <li><a href="http://lutaf.com" target="_blank" title="lutaf">鲁塔弗</a></li>
+	  <li><a href="http://www.dielianhua.us/" target="_blank" title="dielianhua">Web前端学习笔记</a></li>
+	  <li><a href="http://wulala.in/" target="_blank" title="wulala">乌拉拉</a></li>
+	  <li><a href="http://mycodebattle.com/" target="_blank" title="code">PureForg's Home</a></li>
+	  <li><a href="http://ippotsuko.com/" target="_blank" title="ippotsuko">遇见</a></li>
+	  <li><a href="http://www.flaticon.com/" target="_blank" title="icon">flaticon</a></li>
+	  <li><a href="http://zbcwilliam.com/" target="_blank" title="pig">猪</a></li>
+	</ul>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer">
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hi，I&#39;m LiHao,who is a student for now. <br>
+			This is my blog,thanks for your visit!</p>
+	</section>
+	 
+	<div class="social-font">
+		
+		<a href="http://weibo.com/lhblur" target="_blank" title="weibo"></a>
+		
+		
+		<a href="https://twitter.com/lhblur" target="_blank" title="twitter"></a>
+		
+		
+		<a href="https://github.com/lhblur" target="_blank" title="github"></a>
+		
+		
+		<a href="https://www.facebook.com/lhblur" target="_blank" title="facebook"></a>
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2019 
+		
+		<a href="http://leecol.me" target="_blank" title="lhblur">lhblur</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"lhblur"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-53607018-1', 'lhblur.com');  
+ga('send', 'pageview');
+</script>
+
+
+  </body>
+</html>

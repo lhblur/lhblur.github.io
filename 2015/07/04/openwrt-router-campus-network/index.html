@@ -1,0 +1,441 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f7ea678298c7a8a00253a2488ce13f6d";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  
+    <title>openwrt+mentohust校园网无线WiFi | High See</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="lhblur">
+    
+    <meta name="description" content="实验室搬新之后，由于在办公区，只能使用校园网一人一学号认证上网，实验室来了新人根本没有号码可用，而且这样手机和打印机没法用。老板也不想花费更多钱去办电信宽带，自然就要使用到openwrt+mentohust了。">
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lhblur">
+    <meta name="twitter:title" content="openwrt+mentohust校园网无线WiFi | High See">
+      
+    
+    
+    <link rel="alternative" href="/atom.xml" title="High See" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="High See" title="High See"></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="High See">High See</a></h1>
+				<h2 class="blog-motto">go to see</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/lab">Lab</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索">
+						<input type="hidden" name="q" value="site:leecol.me">
+					</form>
+					
+					</li>
+				</ul>
+			</ul></nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope="" itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/07/04/openwrt-router-campus-network/" title="openwrt+mentohust校园网无线WiFi" itemprop="url">openwrt+mentohust校园网无线WiFi</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://plus.google.com/107843438313320000000?rel=author" title="lhblur" target="_blank" itemprop="author">lhblur</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2015-07-04T06:00:25.000Z" itemprop="datePublished">2015-07-04</time>
+    更新日期:<time datetime="2015-08-25T03:36:33.736Z" itemprop="dateModified">2015-08-25</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+		</div>
+		
+		<p>实验室搬新之后，由于在办公区，只能使用校园网一人一学号认证上网，实验室来了新人根本没有号码可用，而且这样手机和打印机没法用。老板也不想花费更多钱去办电信宽带，自然就要使用到openwrt+mentohust了。<a id="more"></a></p>
+<p>###简介<br>目前主要有传统路由器以及近几年面市的只能路由器（小米路由器、极路由等）。传统路由器不多说了，大家都使用过，只支持设定一些网络参数修改等；智能路由器具有独立的操作系统，可以由用户自行安装各种应用，自行控制带宽、自行控制在线人数、自行控制浏览网页、自行控制在线时间、同时拥有强大的USB共享功能，真正做到网络和设备的智能化管理，目前最流行的路由器操作系统有<a href="http://www.dd-wrt.com/site/index" target="_blank" rel="noopener">dd-wrt</a>和<a href="https://openwrt.org/" target="_blank" rel="noopener">openwrt</a>。这两个套件是适用于嵌入式网络设备的基于linux的开源固件，在这个系统里运行锐捷拨号程序在路由分发之前认证成功。</p>
+<p>###准备工作<br>1.路由器，dd-wrt支持的<a href="http://www.dd-wrt.com/wiki/index.php/Supported_Devices" target="_blank" rel="noopener">路由列表</a>。openwrt支持的<a href="http://wiki.openwrt.org/toh/start" target="_blank" rel="noopener">路由列表</a>。我使用的路由器购自某宝，使用AR9341，16M闪存，64M内存，刷好不死uboot和openwrt系统，硬件是由tp847N改装的，openwrt使用<a href="http://myop.ml/" target="_blank" rel="noopener">明月永在</a>制作的。<br>2.一台能无线上网的电脑。<br>3.操作套件:</p>
+<ul>
+<li>Winscp:用于把文件上传到路由器，这里我们用来给路由器上传mentohust</li>
+<li>putty:远程命令行控制,这里用来编写mentohust配置文件</li>
+<li>mentohust:认证程序</li>
+</ul>
+<p>套件已共享在百度网盘，<a href="http://pan.baidu.com/s/1jUa8A" target="_blank" rel="noopener">点击直达</a>，密码: 4gxn。</p>
+<p>###开始<br>1.将路由器WAN口（单个颜色不同的那个）用网线插入网口，接通路由器电源，稍等几秒<br>2.用笔记本连上路由器默认的无线Wifi，一般是那个新出来的信号很强的那个，连上后在浏览器地址栏192.168.1.1，如下图所示，打开后输入密码，一般是admin或者root。<img src="http://pfile.cn/oi32zq-l" alt=""><br>3.登录进去后，点击网络-无线，就会看到无线WiFi的信息，点击右边修改，在接口设置-基本设置里可以修改网络名称（ESSID)，在接口设置-无线安全面板里可以修改密码。<img src="http://pfile.cn/j1xh3f-l" alt="">  <img src="http://pfile.cn/rmftkq-l" alt="">。<br>4.这时之前连接的WiFi就会消失，断开了连接，重新连接上刚刚设置的WiFi，浏览器打开192.168.1.1，重新登录进去。<br>5.打开操作套件里的Winscp文件夹下的WinSCP.exe，如下图所示，第一次打开时大方框里应该是空白的。<img src="http://pfile.cn/064ijz-l" alt=""><br>6.继续刚才面板上，点击右边的新建，并在弹出的对话框里输入主机名192.168.1.1，端口22，用户名root，密码root，文件协议SCP，并登录（报错请忽略）。<br><img src="http://pfile.cn/n75do4-l" alt=""><br>7.连接成功后，将显示winscp主界面。左边表示本地文件夹，右边就是路由器的文件夹，默认右边的位置是/root，不要修改。在左边点击把路径修改刚才下载套件里mentohust文件，把它拖拽到右边，即可上传成功，成功后即可关闭winscp。<img src="http://pfile.cn/n75do4-l" alt=""><br>8.在路由器上安装mentohust并运行。运行套件里的putty.exe，输入host name为192.168.1.1，端口22，连接方式SSH，并点击下面的OPEN，即如下图所示<img src="http://pfile.cn/5axfsx-l" alt=""><br>9.在弹出的黑窗口里输入用户名root，回车。再输入密码root（输入时不会出现任何显示，请连续输入即可）。<img src="http://pfile.cn/h5thpn-l" alt=""><br>10.在~#后输入<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cp</span> mentohust /usr/sbin/mentohust</span><br></pre></td></tr></table></figure></p>
+<p>11.接着编辑mentohust配置文件，执行以下命令，在~#后输入<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vi</span> /etc/mentohust.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure></p>
+<p>配置信息参考如下<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[MentoHUST]</span></span><br><span class="line"><span class="attr">Username</span>=xxxxx</span><br><span class="line"><span class="attr">Password</span>=******** （分别是认证需要的用户名和密码，华科校园网就是学号及对应密码）</span><br><span class="line"><span class="attr">Nic</span>=eth0 （这里可以看<span class="number">192.168</span>.<span class="number">1.1</span>界面里，接口-&gt;接口总览，看WAN那个接口叫什么名字，一般都是ethxx之类的）</span><br><span class="line"><span class="attr">IP</span>=<span class="number">0.0</span>.<span class="number">0.0</span></span><br><span class="line"><span class="attr">Mask</span>=<span class="number">0.0</span>.<span class="number">0.0</span></span><br><span class="line"><span class="attr">Gateway</span>=<span class="number">0.0</span>.<span class="number">0.0</span></span><br><span class="line"><span class="attr">DNS</span>=<span class="number">0.0</span>.<span class="number">0.0</span></span><br><span class="line"><span class="attr">PingHost</span>=<span class="number">0.0</span>.<span class="number">0.0</span></span><br><span class="line"><span class="attr">Timeout</span>=<span class="number">8</span></span><br><span class="line"><span class="attr">EchoInterval</span>=<span class="number">30</span></span><br><span class="line"><span class="attr">RestartWait</span>=<span class="number">15</span></span><br><span class="line"><span class="attr">MaxFail</span>=<span class="number">0</span></span><br><span class="line"><span class="attr">StartMode</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">DhcpMode</span>=<span class="number">2</span></span><br><span class="line"><span class="attr">DaemonMode</span>=<span class="number">2</span></span><br><span class="line"><span class="attr">Version</span>=<span class="number">4.96</span>  （目前华科校园华科有线网客户端版本号<span class="number">4.96</span>）</span><br><span class="line"><span class="attr">DataFile</span>=/etc/mentohust/</span><br><span class="line"><span class="attr">DhcpScript</span>=dhclient</span><br></pre></td></tr></table></figure></p>
+<p>配置好后，输入以下<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">mentohust</span></span><br></pre></td></tr></table></figure></p>
+<p>如果看到提示<strong>Pemission denies</strong>的提示信息，执行以下命令添加可执行权限<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod <span class="number">777</span> <span class="regexp">/usr/</span>sbin<span class="regexp">/mentohust</span></span><br></pre></td></tr></table></figure></p>
+<p><em>如果发现提示<strong>atexit</strong>错误信息，说明这个mentohust不可用，你应该重新去找。</em><br>成功运行的话，接下来会有一长串拨号信息，如果拨号成功的话，你会看得到，这时可以试试浏览器上网。。。<br>12.接下来设置开机和重启自启动，执行以下命令<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi <span class="regexp">/etc/i</span>nit.d<span class="regexp">/mentohust</span></span><br></pre></td></tr></table></figure></p>
+<p>输入以下配置<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh /etc/rc.common</span><br><span class="line">START=<span class="number">99</span></span><br><span class="line">STOP=<span class="number">10</span></span><br><span class="line"><span class="function"><span class="title">start</span><span class="params">()</span></span></span><br><span class="line">&#123;</span><br><span class="line">mentohust</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="title">stop</span><span class="params">()</span></span></span><br><span class="line">&#123;</span><br><span class="line">sync</span><br><span class="line">mentohust -k</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="title">restart</span><span class="params">()</span></span></span><br><span class="line">&#123;</span><br><span class="line">stop</span><br><span class="line">start</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后运行<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/etc/i</span>nit.d<span class="regexp">/mentohust enable</span></span><br></pre></td></tr></table></figure></p>
+<p>系统会自动创建两个连接到/etc/rc.d/下，类似于windows的开关机脚本。</p>
+<p>###Reference<br><a href="http://blog.sina.com.cn/s/blog_64cd9df90101a452.html" target="_blank" rel="noopener">Openwrt路由器设置mentohust进行锐捷拨号上网</a><br><a href="http://blog.sina.com.cn/s/blog_61a9cc7a0101rg2b.html" target="_blank" rel="noopener">openwrt+mentohust成功锐捷拨号</a><br><a href="http://www.right.com.cn/forum/thread-105317-1-1.html" target="_blank" rel="noopener">安装openwrt及mentohust成功</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/share/">share</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/hobby/">hobby</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://leecol.me/2015/07/04/openwrt-router-campus-network/" data-title="openwrt+mentohust校园网无线WiFi | High See" data-tsina="2167735640" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev">
+ <a href="/2016/03/17/opencv-curl-config-linux/" title="opencv&amp;curl-config-linux">
+  <strong>PREVIOUS:</strong><br>
+  <span>
+  opencv&amp;curl-config-linux</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/12/25/android-sensor-sample/" title="Android传感器数据采集及保存">
+ <strong>NEXT:</strong><br> 
+ <span>Android传感器数据采集及保存
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/android/" title="android">android<sup>1</sup></a></li>
+		
+			<li><a href="/categories/hobby/" title="hobby">hobby<sup>3</sup></a></li>
+		
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		
+			<li><a href="/categories/share/" title="share">share<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/hexo/" title="hexo">hexo<sup>2</sup></a></li>
+		
+			<li><a href="/tags/opencv/" title="opencv">opencv<sup>1</sup></a></li>
+		
+			<li><a href="/tags/share/" title="share">share<sup>3</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+	  <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
+      <li><a href="http://yangjian.me" target="_blank" title="YangJian">Alimon's Blog</a></li>
+      <li><a href="http://zipperary.com/" target="_blank" title="zippera">Zippera's Blog</a></li>
+      <li><a href="http://brotherb.info/" target="_blank" title="brotherb">Spike's Blog</a></li>
+      <li><a href="http://hijiangtao.github.io/" target="_blank" title="JiangTao">Data.Blog</a></li>
+	  <li><a href="http://ibrother.me/" target="_blank" title="ibrother">ibrother</a></li>
+	  <li><a href="http://www.solomp.com" target="_blank" title="MP16">歌神彭明</a></li>
+      <li><a href="http://www.j-cn.me/" target="_blank" title="Jeremy">Jeremy's Memo</a></li>
+	  <li><a href="http://lutaf.com" target="_blank" title="lutaf">鲁塔弗</a></li>
+	  <li><a href="http://www.dielianhua.us/" target="_blank" title="dielianhua">Web前端学习笔记</a></li>
+	  <li><a href="http://wulala.in/" target="_blank" title="wulala">乌拉拉</a></li>
+	  <li><a href="http://mycodebattle.com/" target="_blank" title="code">PureForg's Home</a></li>
+	  <li><a href="http://ippotsuko.com/" target="_blank" title="ippotsuko">遇见</a></li>
+	  <li><a href="http://www.flaticon.com/" target="_blank" title="icon">flaticon</a></li>
+	  <li><a href="http://zbcwilliam.com/" target="_blank" title="pig">猪</a></li>
+	</ul>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer">
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hi，I&#39;m LiHao,who is a student for now. <br>
+			This is my blog,thanks for your visit!</p>
+	</section>
+	 
+	<div class="social-font">
+		
+		<a href="http://weibo.com/lhblur" target="_blank" title="weibo"></a>
+		
+		
+		<a href="https://twitter.com/lhblur" target="_blank" title="twitter"></a>
+		
+		
+		<a href="https://github.com/lhblur" target="_blank" title="github"></a>
+		
+		
+		<a href="https://www.facebook.com/lhblur" target="_blank" title="facebook"></a>
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2019 
+		
+		<a href="http://leecol.me" target="_blank" title="lhblur">lhblur</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"lhblur"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-53607018-1', 'lhblur.com');  
+ga('send', 'pageview');
+</script>
+
+
+  </body>
+</html>
